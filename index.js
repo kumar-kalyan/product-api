@@ -4,6 +4,9 @@ require('dotenv').config()
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const Product = require('./models/productmodel');
+const Order = require('./models/ordermodel');
+
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, (err) => {
     if (!err) {
         console.log('MongoDB connection succeeded.');
@@ -13,7 +16,7 @@ mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, (err) => 
     }
 }
 );
-const path = require('path');
+
 const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
