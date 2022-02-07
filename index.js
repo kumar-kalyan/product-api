@@ -6,6 +6,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const Product = require('./models/productmodel');
 const Order = require('./models/ordermodel');
+const authRoutes = require('./routes/auth');
 
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, (err) => {
     if (!err) {
@@ -21,6 +22,12 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+//register a new user
+app.use('/api/auth', authRoutes);
+app.use('/api/login', authRoutes);
+
+
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 })
