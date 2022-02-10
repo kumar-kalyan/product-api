@@ -8,6 +8,7 @@ const Product = require('./models/productmodel');
 const Order = require('./models/ordermodel');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
+const productRoutes = require('./routes/product');
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, (err) => {
     if (!err) {
         console.log('MongoDB connection succeeded.');
@@ -26,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/auth', authRoutes);
 app.use('/api/login', authRoutes);
 app.use('/api/users', userRoutes);
-
+app.use('/api/products', productRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
