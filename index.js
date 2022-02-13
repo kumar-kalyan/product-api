@@ -30,7 +30,7 @@ app.use('/api/login', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
-app.use('/api/cart', orderRoutes)
+app.use('/api/cart', cartRoutes)
 
 
 app.listen(PORT, () => {
