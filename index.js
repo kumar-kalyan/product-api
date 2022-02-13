@@ -7,7 +7,8 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const productRoutes = require('./routes/product');
-const orderRoutes = require('./routes/order')
+const orderRoutes = require('./routes/order');
+const cartRoutes = require('./routes/cart');
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, (err) => {
     if (!err) {
         console.log('MongoDB connection succeeded.');
@@ -29,7 +30,7 @@ app.use('/api/login', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
-
+app.use('/api/cart', orderRoutes)
 
 
 app.listen(PORT, () => {
