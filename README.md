@@ -18,7 +18,7 @@ An ecommerce backend server capable of handling users, products , cart , advance
  npm install
  
  ```
- - create `.env `file in the root dicrectory and add enironment variables 
+ - create `.env ` file in the root dicrectory and add enironment variables 
  
  ```
  DB_CONNECTION=mongodb://localhost:27017/product-api
