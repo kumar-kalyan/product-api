@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const Cart = require('../models/cartmodel')
-const { verifyTokenAndAuthorization, verifyTokenAndAdmin } = require('../routes/verifyToken')
+const { verifyTokenAndAuthorization, veryifyTokenAndAdmin } = require('../routes/verifyToken')
 
 //add products to cart 
 router.post('/', verifyTokenAndAuthorization, async (req, res) => {
@@ -15,6 +15,7 @@ router.post('/', verifyTokenAndAuthorization, async (req, res) => {
         })
     }
 })
+
 //update cart 
 router.put('/:id', verifyTokenAndAuthorization, async (req, res) => {
     const data = req.body
@@ -46,7 +47,7 @@ router.get('/users/:id', verifyTokenAndAuthorization, async (req, res) => {
 
 //everyone's cart 
 
-router.get('/', verifyTokenAndAdmin, async (req, res) => {
+router.get('/', veryifyTokenAndAdmin, async (req, res) => {
     try {
         const allCartDetails = await Cart.find({})
         res.status(200).json(allCartDetails)
@@ -58,8 +59,10 @@ router.get('/', verifyTokenAndAdmin, async (req, res) => {
     }
 })
 
-//delete any cart 
-router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
+
+
+// delete any cart 
+router.delete('/:id', veryifyTokenAndAdmin, async (req, res) => {
     const { id } = req.params
     try {
         await Cart.findByIdAndDelete(id)
@@ -68,7 +71,10 @@ router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
         })
     }
     catch (err) {
-
+        res.status(500).json({
+            message: err.message
+        })
     }
 
 })
+module.exports = router;

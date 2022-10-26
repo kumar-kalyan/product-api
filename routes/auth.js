@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 router.post('/register', async (req, res) => {
     const { username, password, email } = req.body;
     try {
-        const createdUser = await User.create({ username, password, email })
+        const createdUser = await User.create({ username: username, password: crypto.AES.encrypt(password, process.env.SECRET_KEY).toString(), email: email })
         res.status(201).json(createdUser);
     }
     catch (err) {
@@ -17,9 +17,14 @@ router.post('/register', async (req, res) => {
 //Login a user
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
+    console.log(username, password)
     try {
-        var user = await User.findOne({ username: username });
-        if (!user || user.password !== password) {
+        const user = await User.findOne({ username: username });
+        console.log(user)
+        const hashPass = crypto.AES.decrypt(user.password, process.env.SECRET_KEY)
+        const secPass = hashPass.toString(crypto.enc.Utf8);
+        console.log("secpass:" + secPass)
+        if (!user || secPass !== password) {
             res.status(401).json({ message: "Invalid username or password" });
         }
         else {
@@ -33,6 +38,9 @@ router.post('/login', async (req, res) => {
     }
 
 })
+
+
+
 
 
 
